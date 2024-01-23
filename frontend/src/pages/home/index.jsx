@@ -2,6 +2,7 @@ import React from 'react'
 import {Helmet} from "react-helmet";
 import Slide from '../../components/slide';
 import NewArrival from '../../components/new-arrival';
+import PopularItems from '../../components/popular-items';
 
 
 function Home() {
@@ -16,6 +17,7 @@ function Home() {
 
         <Slide/>
         <NewArrival/>
+        <PopularItems/>
     </>
   )
 }

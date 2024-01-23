@@ -1,0 +1,44 @@
+#items {
+  padding: 100px 0;
+
+  .container {
+    margin: 0 100px;
+
+    .product-row {
+      align-items: center;
+      text-align: center;
+
+      .product-head {
+        text-align: center;
+
+        h1 {
+          font-size: 50px;
+          padding-bottom: 10px;
+        }
+        p {
+          font-size: 20px;
+        }
+      }
+
+      .productCard {
+        width: 400px;
+        margin-bottom: 10px;
+
+        .imgWrapper {
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        h1 {
+          font-size: 25px;
+        }
+
+        p {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
