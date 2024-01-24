@@ -47,13 +47,11 @@ function AddProduct() {
     onSubmit: async (values) => {
       try {
         const res = await createNewProduct(values);
-
         if (products) {
           setProducts([...products, res.data.data]);
-
           resetForm();
         } else {
-          setProducts(res.data.data);
+          setProducts([res.data.data]);
         }
       } catch (err) {
         console.error(err);
@@ -63,20 +61,26 @@ function AddProduct() {
     validationSchema: productSchema,
   });
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
 
-  const handleSearch = (e) =>{
-    setSearchQuery(e.target.value)
-
-    const searchValue =  e.target.value.trim().toLowerCase();
-    const searchedResult = products.filter((item)=> item.productName.toLowerCase().trim().includes(searchValue));
-    setSearchedResult(searchedResult)
-  }
-
-  useEffect(()=>{
-    if (searchedResult.length === products.length) {
-      setSearchedResult([])
+    const searchValue = e.target.value.trim().toLowerCase();
+    if (searchValue == "") {
+      setSearchedResult(() => [...products]);
+      return;
+    } else {
+      const searchedResult = products.filter((item) =>
+        item.productName.toLowerCase().trim().includes(searchValue)
+      );
+      setSearchedResult(searchedResult);
     }
-  }, [searchQuery])
+  };
+
+  useEffect(() => {
+    setSearchedResult(products);
+  }, [products]);
+
+  console.log("tet");
 
   const columns = [
     {
@@ -165,9 +169,7 @@ function AddProduct() {
           onBlur={handleBlur}
           value={values.price}
         />
-        {errors.price && touched.price && (
-          <p>{errors.price}</p>
-        )}
+        {errors.price && touched.price && <p>{errors.price}</p>}
         <Button
           disabled={Object.keys(errors).length > 0 || isSubmitting}
           htmlType="submit"
@@ -190,7 +192,7 @@ function AddProduct() {
       <Table
         rowKey={(x) => x._id}
         columns={columns}
-        dataSource={searchedResult.length > 0 ? searchedResult : products}
+        dataSource={searchedResult.length > 0 && searchedResult}
         onChange={onChange}
       />
     </>
